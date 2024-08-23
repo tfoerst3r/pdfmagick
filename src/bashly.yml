@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 Thomas Förster
+# SPDX-License-Identifier: MIT
+
+name: pdfmagick
+help: Performs PDF magick
+version: 0.1.0
+
+commands:
+- name: ocr
+  help: Performs OCR on given pdf
+  args:
+  - name: file
+    help: pdf file
+    validate: pdf_exists
+  flags:
+  - long: --lang
+    arg: lang
+    default: eng
+    help: OCR language; eng deu
+
+- name: merge
+  help: Merges two pdfs with odd and even pages
+  args: 
+  - name: file_odd
+    help: pdf file
+    validate: pdf_exists
+  - name: file_even
+    help: pdf file
+    validate: pdf_exists
+  - name: output
+    help: output pdf, ex. out.pdf
+    default: out.pdf
+  flags:
+  - long: --density
+    arg: density
+    default: 300x300
+    help: DPI, ex. 300x300, 300
+
+
+  examples:
+  - pdfmagick ocr foo.pdf
+  - pdfmagick merge foo_odd.pdf foo_even.pdf
+
