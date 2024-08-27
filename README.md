@@ -2,11 +2,11 @@
 
 <!-- PROJECT Title -->
 <h1 align="center">
-TITEL
+pdfmagick
 </h3>
 
 <p align="center">
-TEASER
+TUI for several tools to manipulate PDFs including embedding ocr text.
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -34,6 +34,7 @@ TEASER
 ## About the Project
 <!-- Some details about the motivation of the project-->
 
+Streamline several tools for my workflow of archiving documents from scanner to pdf.
 
 <!--=================-->
 <!-- GETTING STARTED -->
@@ -42,13 +43,53 @@ TEASER
 <!-- what does the script/program do-->
 
 ### Prerequisites
+The current setup utilize:
+
+- `ocrmypdf` (snap, v16.4.2)
+- `pdftk` (v3.3.3)
+- `magick` (v7.1.1)
+
+Please have this or newer installed on your system.
 
 ### Installation
+
+``` bash
+$ bashly generate
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
+!!! example
+
+    You have scanned a document with two files, one with odd pages and one with even pages.
+    
+    1. Scanned document
+    1. For one sided scans, you need to merge odd and even numbered pages via:
+        
+        ``` bash
+        $ pdfmagick zip odd.pdf even.pdf
+        ```
+    
+    1. For the tool `scantailor` you need files in tif format
+        
+        ``` bash
+        $ pdfmagick pdf2tif input.pdf
+        ```
+    
+    1. Utilize `scantailor` (external program, which needs tif inputs)
+    1. Merge all created new `*.tif` files
+    
+        ``` bash
+        $ pdfmagick tif2pdf out.pdf *.tif
+        ```
+    1. Finally perform ocr including the embedding of the ocr in the pdf
+    
+        ``` bash
+        $ pdfmagick ocr out.pdf --lang eng
+        ```
 
 <!-- CONTRIBUTING -->
 ## Contributing

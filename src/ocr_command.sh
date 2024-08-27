@@ -11,14 +11,14 @@ _output_file=""
 #== USER INPUT ==#
 #================#
 _language=${args[--lang]}
-_input_file=${args[file]}
+_input_file=${args[input]}
 
 #===============#
 #== FUNCTIONS ==#
 #===============#
 
-_output_file() {
-## TODO output option not set yet
+_set_output_file() {
+## TODO further output option not set yet, there should be an option for 
 _output_file=$_input_file
 ##  if [[ ! -f "$_output_file" ]] && [[ "$_output_file" == *.pdf ]]; then
 ##      echo "$_output_file is set as the output."
@@ -29,7 +29,7 @@ _output_file=$_input_file
 ##  fi
 }  
 
-_config_assembly() {
+_set_config() {
 
   #-- The else option will only occur when you do --lang ''
   if [ -n "$_language" ]; then
@@ -41,19 +41,21 @@ _config_assembly() {
           --redo-ocr"
   fi
 
+  _ocr_config=$(echo "$_ocr_config" | sed 's/ \+/ /g')
 }
 
 #--------------#
 
 _ocr() {
 
-## Output file
-_output_file
+## Set output file
+_set_output_file
 
-## Setting up the config
-_config_assembly
+## Set up the used tool configuration (ocrmypdf)
+_set_config
 
-echo "Executing... \n ocrmypdf $_ocr_config $_input_file --optimize 1 $_output_file \n"
+## -- main routine -- ##
+echo "Executing.. ocrmypdf $_ocr_config $_input_file --optimize 1 $_output_file"
 ocrmypdf $_ocr_config $_input_file --optimize 1 $_output_file
 echo "OCR of $_input_file is done. The new/overwritten file is $_output_file"
 

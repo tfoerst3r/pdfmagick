@@ -6,20 +6,31 @@ help: Performs PDF magick
 version: 0.1.0
 
 commands:
+## == OCR == ##
 - name: ocr
   help: Performs OCR on given pdf
-  args:
-  - name: file
-    help: pdf file
+  
+  args: 
+  - name: input
+    help: PDF input file
     validate: pdf_exists
+  - name: output 
+    help: PDF output file
+    validate: pdf_in_name
+
   flags:
   - long: --lang
     arg: lang
-    default: eng
+    default: deu
     help: OCR language; eng deu
 
-- name: merge
-  help: Merges two pdfs with odd and even pages
+  examples:
+  - pdfmagick ocr foo.pdf --lang deu
+
+## == ZIP == ##
+- name: zip
+  help: Zip/Merges two pdfs with odd and even pages
+  
   args: 
   - name: file_odd
     help: pdf file
@@ -30,14 +41,49 @@ commands:
   - name: output
     help: output pdf, ex. out.pdf
     default: out.pdf
+  
   flags:
   - long: --density
     arg: density
-    default: 300x300
+    default: 600x600
     help: DPI, ex. 300x300, 300
 
-
   examples:
-  - pdfmagick ocr foo.pdf
-  - pdfmagick merge foo_odd.pdf foo_even.pdf
+  - pdfmagick zip foo_odd.pdf foo_even.pdf
+
+## == PDF2TIF == ##
+- name: pdf2tif
+  help: Converts pdf to tif
+  
+  args:
+  - name: ouput
+    help: Output file/files
+    validate: tif_in_name
+  - name: input
+    help: Input file/files
+    validate: filecheck
+    repeatable: true
+  
+  flags:
+  - long: --mergeto
+    arg: output
+    help: Merges the tifs in one output tif file 
+
+  - long: --density
+    arg: density
+    default: 600x600
+    help: DPI, ex. 300x300, 300
+
+## == TIF2PDF == ##
+- name: tif2pdf
+  help: Converts tif to pdf
+  
+  args:
+  - name: output
+    help: One Output file
+    validate: pdf_in_name
+  - name: input
+    help: Input file/files
+    validate: filecheck
+    repeatable: true
 
