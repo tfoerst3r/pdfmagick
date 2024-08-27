@@ -62,34 +62,34 @@ $ bashly generate
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-!!! example
+**Example**
 
-    You have scanned a document with two files, one with odd pages and one with even pages.
+You have scanned a document with two files, one with odd pages and one with even pages.
+
+1. Scanned document
+1. For one sided scans, you need to merge odd and even numbered pages via:
     
-    1. Scanned document
-    1. For one sided scans, you need to merge odd and even numbered pages via:
-        
-        ``` bash
-        $ pdfmagick zip odd.pdf even.pdf
-        ```
+    ``` bash
+    $ pdfmagick zip odd.pdf even.pdf
+    ```
+
+1. For the tool `scantailor` you need files in tif format
     
-    1. For the tool `scantailor` you need files in tif format
-        
-        ``` bash
-        $ pdfmagick pdf2tif input.pdf
-        ```
-    
-    1. Utilize `scantailor` (external program, which needs tif inputs)
-    1. Merge all created new `*.tif` files
-    
-        ``` bash
-        $ pdfmagick tif2pdf out.pdf *.tif
-        ```
-    1. Finally perform ocr including the embedding of the ocr in the pdf
-    
-        ``` bash
-        $ pdfmagick ocr out.pdf --lang eng
-        ```
+    ``` bash
+    $ pdfmagick pdf2tif input.pdf
+    ```
+
+1. Utilize `scantailor` (external program, which needs tif inputs)
+1. Merge all created new `*.tif` files
+
+    ``` bash
+    $ pdfmagick tif2pdf out.pdf *.tif
+    ```
+1. Finally perform ocr including the embedding of the ocr in the pdf
+
+    ``` bash
+    $ pdfmagick ocr out.pdf --lang eng
+    ```
 
 <!-- CONTRIBUTING -->
 ## Contributing

@@ -1,6 +1,6 @@
 # License
 
-Copyright (c) 2022 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+Copyright (c) 2024 tfoerst3r
 
 This work is licensed under a [CC-BY-4.0](LICENSES/CC-BY-4.0.txt) license.
 
