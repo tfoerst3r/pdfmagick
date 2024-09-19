@@ -3,6 +3,10 @@
 
 validate_pdf_exists() {
   file="$1"
+  extension="pdf"
   file_extension=`echo ${file##*.} | tr '[:upper:]' '[:lower:]'`
-  ( [[ -f $file ]] && [[ "$file_extension" == 'pdf' ]] ) || echo "$file must be an existing pdf."
+
+  if [[ ! -f $file ]] && [[ $file_extension != $extension ]]; then
+      echo "$file must be an existing $extension."
+  fi
 }

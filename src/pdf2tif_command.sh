@@ -5,48 +5,59 @@
 #====================#
 #== INITIALIZATION ==#
 #====================#
-local tifarray=()
+local _tifarray=()
 
 #================#
 #== USER INPUT ==#
 #================#
-local files=(${args[file]:-})
-local mergeto=${args[--mergeto]}
+local INPUT=(${args[input]:-})
+local MERGETO=${args[--mergeto]}
 local DPI=${args[--density]}
 
 #===============#
 #== FUNCTIONS ==#
 #===============#
-
 _set_magick_config() {
 _magick_config="\
-  -quality 90 \
-  -background white \
-  -alpha background \
-  -compress zip"
+-quality 90 \
+-background white \
+-alpha background \
+-compress zip"
 }
 
 
 #--------------#
 
 _pdf2tif() {
+  
+  # Setting up config
   _set_magick_config
-  for file in ${files[@]}; do
-    name="$(echo $file | cut -f 1 -d '.').tif"
-    echo "Converting PDF to TIF - $file to $name"
-    magick -density $DPI $file $_magick_config $name
-    tifarray+=("$name")
+  
+  for file in ${INPUT[@]}; do
+    
+    output="$(echo $file | cut -f 1 -d '.').tif"
+    echo "Converting PDF to TIF - $file to $output"
+    echo "Runnig ..."
+
+    magick -density $DPI $file $_magick_config $output
+    _tifarray+=("$output")
+
   done
 }
 
 #--------------#
 
 _merge() {
-  ## Not sufficient 
+  # merges all the *.tif files 
+  # Setting up config
   _set_magick_config
-  echo "Input will be accumulated in $mergeto" 
-  magick -density $DPI ${tifarray[@]} $_magick_config -append $mergeto
+    
+  echo "Input will be accumulated in $MERGETO" 
+  echo "Runnig ..."
+  magick -density $DPI ${_tifarray[@]} $_magick_config -append $MERGETO
+
 }
+
 
 #==================#
 #== MAIN PROGRAM ==#
@@ -54,7 +65,7 @@ _merge() {
 _pdf2tif
 
 ## merge the input to one file
-if [[ -n $mergeto ]]; then
-    _merge
+if [[ -n $MERGETO ]]; then
+  _merge
 fi
 

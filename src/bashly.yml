@@ -6,6 +6,7 @@ help: Performs PDF magick
 version: 0.1.0
 
 commands:
+
 ## == OCR == ##
 - name: ocr
   help: Performs OCR on given pdf
@@ -42,23 +43,14 @@ commands:
     help: output pdf, ex. out.pdf
     default: out.pdf
   
-  flags:
-  - long: --density
-    arg: density
-    default: 600x600
-    help: DPI, ex. 300x300, 300
-
   examples:
-  - pdfmagick zip foo_odd.pdf foo_even.pdf
+  - pdfmagick zip foo_odd.pdf foo_even.pdf out.pdf
 
 ## == PDF2TIF == ##
 - name: pdf2tif
   help: Converts pdf to tif
   
   args:
-  - name: ouput
-    help: Output file/files
-    validate: tif_in_name
   - name: input
     help: Input file/files
     validate: filecheck
@@ -67,6 +59,7 @@ commands:
   flags:
   - long: --mergeto
     arg: output
+    validate: pdf_in_name
     help: Merges the tifs in one output tif file 
 
   - long: --density
@@ -86,4 +79,7 @@ commands:
     help: Input file/files
     validate: filecheck
     repeatable: true
+
+## == TIF2TIF == ##
+
 

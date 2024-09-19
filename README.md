@@ -113,7 +113,7 @@ Imagine you have scanned a document, consisting of two files, one for odd and an
 1. To be able to use `scantailor` you need tif files, therefor you 
     
     ``` bash
-    $ pdfmagick pdf2tif input.pdf
+    $ pdfmagick pdf2tif *.pdf
     ```
 
 1. Utilize `scantailor` (external program, which needs tif inputs)

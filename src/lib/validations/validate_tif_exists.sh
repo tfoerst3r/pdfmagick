@@ -1,12 +1,12 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024 Thomas Förster
 # SPDX-License-Identifier: MIT
 
-validate_pdf_in_name() {
+validate_tif_exists() {
   file="$1"
-  extension="pdf"
+  extension="tif"
   file_extension=`echo ${file##*.} | tr '[:upper:]' '[:lower:]'`
 
-  if [[ $file_extension != $extension ]]; then 
-      echo "$file must be an $extension."
+  if [[ ! -f $file ]] && [[ $file_extension != $extension ]]; then
+      echo "$file must be an existing $extension."
   fi
 }

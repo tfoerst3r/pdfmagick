@@ -18,9 +18,8 @@ local _output=${args[output]}
 #== FUNCTIONS ==#
 #===============#
 
-#--------------#
-
 _tif2pdf() {
+
 for file in ${_input[@]}; do
   name=$(echo $file | cut -f 1 -d '.')
   echo "Converting TIF to PDF - $file to $name.pdf"
@@ -29,7 +28,7 @@ for file in ${_input[@]}; do
       pdfarray+=("$name.pdf")
       _flag_one_output=true
   fi
-  magick $file $name.pdf
+  magick $file -resize 100% -gravity center -extent %[fx:w]x%[fx:h] $name.pdf
 done
 
 if [[ $_flag_one_output == true ]]; then
@@ -37,15 +36,9 @@ if [[ $_flag_one_output == true ]]; then
     pdftk ${pdfarray[@]} cat output $_output
     echo "Removing tmp files.."
     rm -f ${pdfarray[@]}
-    #for file in ${pdfarray[@]}; do
-    #    
-    #    rm -f file
-    #done
 fi
 
 }
-
-#--------------#
 
 #==================#
 #== MAIN PROGRAM ==#
